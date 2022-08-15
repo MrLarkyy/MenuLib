@@ -1,0 +1,4 @@
+name: MenuLib
+version: '${project.version}'
+main: xyz.larkyy.menulib.MenuLib
+api-version: 1.16
