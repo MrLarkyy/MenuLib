@@ -91,7 +91,7 @@ public class Menu implements InventoryHolder {
         }
 
         public Builder size(int i) {
-            this.size = size;
+            this.size = i;
             return this;
         }
 
