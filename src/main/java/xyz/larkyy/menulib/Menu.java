@@ -40,6 +40,14 @@ public class Menu implements InventoryHolder {
         }
     }
 
+    public MenuItem getItem(String s) {
+        return menuItems.get(s);
+    }
+
+    public void addItem(MenuItem item) {
+        menuItems.put(item.getId(),item);
+    }
+
     @Override
     public Inventory getInventory() {
         return inventory;
@@ -57,6 +65,11 @@ public class Menu implements InventoryHolder {
         mi.activate(e);
     }
 
+    @Override
+    public Menu clone() {
+        return new Menu(plugin,key,menuItems,title,inventory.getSize());
+    }
+
     public static Builder builder(JavaPlugin plugin) {
         return new Builder(plugin);
     }
@@ -65,7 +78,7 @@ public class Menu implements InventoryHolder {
     public static class Builder {
         private final JavaPlugin plugin;
         private final NamespacedKey key;
-        private final Map<String,MenuItem> menuItems;
+        private Map<String,MenuItem> menuItems;
         private String title;
         private int size;
 
@@ -98,6 +111,15 @@ public class Menu implements InventoryHolder {
         public Menu build() {
             new MenuListener(plugin);
             return new Menu(plugin,key,menuItems,title,size);
+        }
+
+        public Builder clone() {
+            Builder b = new Builder(plugin);
+            b.menuItems = menuItems;
+            b.title = title;
+            b.size = size;
+
+            return b;
         }
     }
 

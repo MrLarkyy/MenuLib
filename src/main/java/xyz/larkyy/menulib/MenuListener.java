@@ -19,7 +19,8 @@ public class MenuListener implements Listener {
 
     @EventHandler
     public void onInvClick(InventoryClickEvent e) {
-        if (e.getInventory().getHolder() instanceof Menu m) {
+        if (e.getInventory().getHolder() instanceof Menu) {
+            Menu m = (Menu) e.getInventory().getHolder();
             e.setCancelled(true);
             m.activate(e);
         }

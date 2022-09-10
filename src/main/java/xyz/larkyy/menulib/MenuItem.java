@@ -4,6 +4,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -11,13 +12,19 @@ public class MenuItem {
 
     private final String id;
     private final ItemStack itemStack;
-    private final Consumer<InventoryClickEvent> action;
+    private List<Consumer<InventoryClickEvent>> actions;
     private final List<Integer> slots;
 
+    public MenuItem(String id, ItemStack is, List<Consumer<InventoryClickEvent>> actions, List<Integer> slots) {
+        this.id = id;
+        this.itemStack = is;
+        this.actions = actions;
+        this.slots = slots;
+    }
     public MenuItem(String id, ItemStack is, Consumer<InventoryClickEvent> action, List<Integer> slots) {
         this.id = id;
         this.itemStack = is;
-        this.action = action;
+        this.actions = Arrays.asList(action);
         this.slots = slots;
     }
 
@@ -33,8 +40,12 @@ public class MenuItem {
         return slots;
     }
 
+    public void addAction(Consumer<InventoryClickEvent> action) {
+        actions.add(action);
+    }
+
     public void activate(InventoryClickEvent e) {
-        action.accept(e);
+        actions.forEach(a -> a.accept(e));
     }
 
     public static Builder builder(String id, ItemStack is) {
