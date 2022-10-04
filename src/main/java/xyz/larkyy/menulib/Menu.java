@@ -115,7 +115,10 @@ public class Menu implements InventoryHolder {
 
         public Builder clone() {
             Builder b = new Builder(plugin);
-            b.menuItems = menuItems;
+            b.menuItems = new HashMap<>();
+            menuItems.forEach((s,mi) -> {
+                b.menuItems.put(s,mi.clone());
+            });
             b.title = title;
             b.size = size;
 

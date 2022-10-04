@@ -24,7 +24,7 @@ public class MenuItem {
     public MenuItem(String id, ItemStack is, Consumer<InventoryClickEvent> action, List<Integer> slots) {
         this.id = id;
         this.itemStack = is;
-        this.actions = Arrays.asList(action);
+        this.actions = new ArrayList<>(Arrays.asList(action));
         this.slots = slots;
     }
 
@@ -45,7 +45,13 @@ public class MenuItem {
     }
 
     public void activate(InventoryClickEvent e) {
-        actions.forEach(a -> a.accept(e));
+        for (Consumer<InventoryClickEvent> a : actions) {
+            a.accept(e);
+        }
+    }
+
+    public MenuItem clone() {
+        return new MenuItem(id,itemStack.clone(),new ArrayList<>(actions),new ArrayList<>(slots));
     }
 
     public static Builder builder(String id, ItemStack is) {

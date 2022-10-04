@@ -6,7 +6,7 @@
 
     <groupId>xyz.larkyy</groupId>
     <artifactId>MenuLib</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.13</version>
     <packaging>jar</packaging>
 
     <name>MenuLib</name>
