@@ -44,6 +44,10 @@ public class Menu implements InventoryHolder {
         return menuItems.get(s);
     }
 
+    public Map<String, MenuItem> getItems() {
+        return menuItems;
+    }
+
     public void addItem(MenuItem item) {
         menuItems.put(item.getId(),item);
     }
